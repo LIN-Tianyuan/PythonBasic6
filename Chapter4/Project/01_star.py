@@ -6,13 +6,17 @@ while a:
     print(a)
     a = a + "*"
 """
-"""
+
 a = 0
 while a < 9:
-    print("*")
+    b = 0
+    while b < a + 1:
+        print("*", end="")
+        b = b + 1
+    print()
     a = a + 1
-"""
 
-print("*", end="")
-print("*")
+
+# print("*", end="")
+# print("*")
 
