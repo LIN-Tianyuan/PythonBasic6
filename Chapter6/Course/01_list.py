@@ -46,3 +46,4 @@ print(rainbow[1:4])
 print(rainbow[2:])  # print(rainbow[2:7])
 print(rainbow[:5])
 print(rainbow[-5:-2])
+
