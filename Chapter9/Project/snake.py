@@ -3,14 +3,21 @@ import pygame
 import sys
 import random
 
+# 窗口的长
 window_x = 720
+# 窗口的宽
 window_y = 480
+# 蛇的速度
+snake_speed = 10
 # 初始化游戏
 pygame.init()
 # 设置窗口的大小
 game = pygame.display.set_mode((window_x, window_y))
 # 设置标题
 pygame.display.set_caption("Snake")
+
+# FPS（每秒帧数）控制器
+fps = pygame.time.Clock()
 
 # 定义蛇的默认位置
 snake_position = [100, 50]
@@ -22,10 +29,10 @@ snake_body = [
     [70, 50]
 ]
 
-a = random.randint(0, 720)
-b = random.randint(0, 480)
+a = random.randint(0, 72)
+b = random.randint(0, 48)
 # 水果的位置
-fruit_position = [a, b]
+fruit_position = [a * 10, b * 10]
 
 # 蛇要转的方向
 change_to = 'RIGHT'
@@ -78,17 +85,27 @@ while True:
     if direction == 'DOWN':
         snake_position[1] = snake_position[1] + 10
 
-    print(snake_position)
-    print(snake_body)
+
+    # 蛇变长
     snake_body.insert(0, list(snake_position))
-    print(snake_body)
+    print(snake_position)
+    print(fruit_position)
+    # 吃苹果
+    if snake_position == fruit_position:
+        # 刷新新的苹果
+        fruit_position = [random.randint(0, 72) * 10, random.randint(0, 48) * 10]
+    else:
+        # 去掉最后一块
+        snake_body.pop(4)
 
-
+    game.fill((0, 0, 0))
     # 画蛇
     for pos in snake_body:
         pygame.draw.rect(game, (0, 0, 255), pygame.Rect(pos[0], pos[1], 10, 10))
 
     # 画苹果
-    pygame.draw.rect(game, (255, 0, 0), pygame.Rect(a, b, 10, 10))
+    pygame.draw.rect(game, (255, 0, 0), pygame.Rect(fruit_position[0], fruit_position[1], 10, 10))
     # 刷新页面
     pygame.display.flip()
+
+    fps.tick(snake_speed)
